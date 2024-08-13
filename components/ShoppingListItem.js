@@ -1,7 +1,7 @@
 import { TouchableOpacity, View, Alert, StyleSheet, Text } from "react-native";
 import { theme } from "../theme";
 
-export function ShoppingListItem({ name }) {
+export function ShoppingListItem({ name, isCompleted }) {
   const handleDelete = () => {
     Alert.alert(
       `Are you sure you want to delete ${name}?`,
@@ -18,11 +18,26 @@ export function ShoppingListItem({ name }) {
   };
 
   return (
-    <View style={styles.itemContainer}>
-      <Text style={styles.itemText}>{name}</Text>
+    <View
+      style={[
+        styles.itemContainer,
+        isCompleted ? styles.completedContainer : undefined,
+      ]}
+    >
+      <Text
+        style={[
+          styles.itemText,
+          isCompleted ? styles.completedText : undefined,
+        ]}
+      >
+        {name}
+      </Text>
       <TouchableOpacity
         onPress={handleDelete}
-        style={styles.button}
+        style={[
+          styles.button,
+          isCompleted ? styles.completedButton : undefined,
+        ]}
         activeOpacity={0.8}
       >
         <Text style={styles.buttonText}>Delete</Text>
@@ -55,5 +70,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textTransform: "uppercase",
     letterSpacing: 1,
+  },
+  completedContainer: {
+    backgroundColor: theme.colorLightGrey,
+    borderBottomColor: theme.colorLightGrey,
+  },
+  completedText: {
+    color: theme.colorGrey,
+    textDecorationLine: "line-through",
+    textDecorationColor: theme.colorGrey,
+  },
+  completedButton: {
+    backgroundColor: theme.colorGrey,
   },
 });
