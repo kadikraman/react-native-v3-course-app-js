@@ -30,6 +30,10 @@ export default function App() {
     fetchInitial();
   }, []);
 
+  useEffect(() => {
+    saveToStorage(storageKey, shoppingList);
+  }, [shoppingList]);
+
   const handleSubmit = () => {
     if (value) {
       const newShoppingList = [
@@ -42,7 +46,6 @@ export default function App() {
       ];
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       setShoppingList(newShoppingList);
-      saveToStorage(storageKey, newShoppingList);
       setValue(undefined);
     }
   };
@@ -73,7 +76,6 @@ export default function App() {
         return item;
       }
     });
-    saveToStorage(storageKey, newShoppingList);
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setShoppingList(newShoppingList);
   };
